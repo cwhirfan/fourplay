@@ -115,8 +115,11 @@ def receive_messages():
 
 
 def send_move(col):
+    #This is for sending move to server
     client.sendall(f'{col}'.encode())
 
+
+#This is to create new thread, to receive the messages from the server, (parallel processing with threading)
 receive_thread = threading.Thread(target=receive_messages)
 receive_thread.start()
 
@@ -125,9 +128,12 @@ draw_board(board)
 # Game loop
 while True:
     for event in pygame.event.get():
+        #Handle the quit event to close the game
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
+
+        # This is for to handle mouse movement to draw the player's piece above the board    
         if event.type == pygame.MOUSEMOTION:
             pygame.draw.rect(screen, BLACK, (0, 0, WIDTH, SQUARESIZE))
             posx = event.pos[0]
@@ -137,9 +143,10 @@ while True:
                 pygame.draw.circle(screen, YELLOW, (posx, int(SQUARESIZE / 2)), RADIUS)
         pygame.display.update()
 
+        # Handle mouse click event to make a move
         if event.type == pygame.MOUSEBUTTONDOWN:
             if my_turn and not winner:
-                posx = event.pos[0]
-                col = int(posx // SQUARESIZE)
-                send_move(col)
-                my_turn = False
+                posx = event.pos[0] # Get the x-coordinate of the mouse click position
+                col = int(posx // SQUARESIZE) # Determine the column based on the x-coordinate from the mouse position before
+                send_move(col) # Send the move to the server
+                my_turn = False  # Set my_turn to False after making a move
