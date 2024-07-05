@@ -17,6 +17,10 @@ BLACK = (0, 0, 0)
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Fourplay")
 
+
+font = pygame.font.SysFont("Arial", 50)
+
+
 def draw_board(board):
     for c in range(7):
         for r in range(6):
