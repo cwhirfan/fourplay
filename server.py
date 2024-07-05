@@ -68,14 +68,18 @@ def handle_client(conn, player):
             conn.close()
             break
 
+#Indicates that server was started
 def start_server():
     print("Server started...")
     while True:
+        #Accept a new connection
         conn, addr = server.accept()
         print(f"Connected by {addr}")
         clients.append(conn)
         player = len(clients) - 1
+        #Create a new thread to handle the client (parallel processing with threading)
         thread = threading.Thread(target=handle_client, args=(conn, player))
         thread.start()
 
+#Start the server
 start_server()
