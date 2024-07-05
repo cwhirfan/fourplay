@@ -34,6 +34,12 @@ def draw_board(board):
                 pygame.draw.circle(screen, YELLOW, (int(c * SQUARESIZE + SQUARESIZE / 2), HEIGHT - int((5-r) * SQUARESIZE + SQUARESIZE / 2)), RADIUS)
     pygame.display.update()
 
+def display_message(message):
+    pygame.draw.rect(screen, BLACK, (0, 0, WIDTH, SQUARESIZE))
+    label = font.render(message, True, WHITE)
+    screen.blit(label, (40, 10))
+    pygame.display.update()
+
 # Client setup
 HOST = '192.168.1.100'
 PORT = 65432
