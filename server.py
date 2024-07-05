@@ -59,13 +59,15 @@ def handle_client(conn, player):
                 if board[row][col] == ' ':
                     board[row][col] = symbols[player]
                     break
-            if check_winner(board, symbols[player]):
-                for client in clients:
-                    client.sendall(f'WIN:{symbols[player]}'.encode())
-                break
-            turn = (turn + 1) % 2
+            #Send the move to all clients
             for client in clients:
                 client.sendall(f'{symbols[player]}:{col}'.encode())
+            if check_winner(board, symbols[player]):
+                    # Send the win message to all clients
+                    for client in clients:
+                         client.sendall(f'WIN:{symbols[player]}:{col}'.encode())  # Include the last move with the win message
+                    break
+            turn = (turn + 1) % 2
         except Exception as e:
             print(f"Error: {e}")
             clients.remove(conn)
