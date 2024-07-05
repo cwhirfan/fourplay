@@ -51,17 +51,21 @@ board = [[' ' for _ in range(7)] for _ in range(6)]
 my_turn = False
 symbol = ''
 winner = False
+color=''
 
 
 # This function is to receive messages from the server
-def receive_messages():
-    global my_turn, symbol, winner, color
 def receive_messages():
     global my_turn, symbol, winner
     while True:
         try:
             message = client.recv(1024).decode()
-            if message.startswith('WIN:'):
+            if message == 'R' or message == 'Y':
+                symbol = message
+                color = 'Red' if symbol == 'R' else 'Yellow'
+                my_turn = (symbol == 'R')
+                if my_turn:
+                    display_message("It's your turn (" + color + ")")
                 winner = True
                 if message[4:] == symbol:
                     print("You win!")
