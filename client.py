@@ -29,9 +29,9 @@ def draw_board(board):
     for c in range(7):
         for r in range(6):
             if board[r][c] == 'R':
-                pygame.draw.circle(screen, RED, (int(c * SQUARESIZE + SQUARESIZE / 2), HEIGHT - int(r * SQUARESIZE + SQUARESIZE / 2)), RADIUS)
+                pygame.draw.circle(screen, RED, (int(c * SQUARESIZE + SQUARESIZE / 2), HEIGHT - int((5-r) * SQUARESIZE + SQUARESIZE / 2)), RADIUS)
             elif board[r][c] == 'Y':
-                pygame.draw.circle(screen, YELLOW, (int(c * SQUARESIZE + SQUARESIZE / 2), HEIGHT - int(r * SQUARESIZE + SQUARESIZE / 2)), RADIUS)
+                pygame.draw.circle(screen, YELLOW, (int(c * SQUARESIZE + SQUARESIZE / 2), HEIGHT - int((5-r) * SQUARESIZE + SQUARESIZE / 2)), RADIUS)
     pygame.display.update()
 
 # Client setup
