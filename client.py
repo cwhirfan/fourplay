@@ -52,6 +52,8 @@ my_turn = False
 symbol = ''
 winner = False
 
+
+# This function is to receive messages from the server
 def receive_messages():
     global my_turn, symbol, winner, color
 def receive_messages():
