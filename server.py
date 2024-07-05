@@ -2,7 +2,7 @@ import socket
 import threading
 
 #Server setup
-HOST = '192.168.1.100'
+HOST = 'SERVER IP ADDRESS'
 PORT = 65432
 
 #Create a socket object
@@ -39,8 +39,6 @@ def check_winner(board, symbol):
             if board[r][c] == board[r - 1][c + 1] == board[r - 2][c + 2] == board[r - 3][c + 3] == symbol:
                 return True
     return False
-
-
 
 def handle_client(conn, player):
     global turn

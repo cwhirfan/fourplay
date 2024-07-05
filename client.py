@@ -13,13 +13,11 @@ RED = (255, 0, 0)
 YELLOW = (255, 255, 0)
 BLUE = (0, 0, 255)
 BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Fourplay")
-
-
 font = pygame.font.SysFont("monospace", 50)
-
 
 def draw_board(board):
     for c in range(7):
@@ -41,10 +39,12 @@ def display_message(message):
     pygame.display.update()
 
 # Client setup
-HOST = '192.168.1.100'
+HOST = 'SERVER IP ADDRESS'
 PORT = 65432
 
+# Create a socket object
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+# Connect to the server
 client.connect((HOST, PORT))
 
 board = [[' ' for _ in range(7)] for _ in range(6)]
