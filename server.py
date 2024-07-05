@@ -76,13 +76,15 @@ def handle_client(conn, player):
 
 #Indicates that server was started
 def start_server():
-    print ("Server start")
+    print ("Server started....")
     while True:
+        #Accept new connection
         conn, addr= server.accept()
         print(f"Connected by {addr}")
         clients.append(conn)
         player = len(clients) -1
         thread = threading.Thread(target=handle_client, args=(conn, player))
         thread.start()
+        
 #Start the server
 start_server()
