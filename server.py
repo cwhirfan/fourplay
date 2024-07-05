@@ -1,12 +1,15 @@
 import socket
 import threading
 
-# Server setup
-HOST = '192.168.1.100'
+#Server setup
+HOST = "Server IP Address"
 PORT = 65432
 
+#Create a socket object
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+#Bind the socket to the specified host and port
 server.bind((HOST, PORT))
+#Enable the server to accept connections (Max 2)
 server.listen(2)
 
 clients = []
