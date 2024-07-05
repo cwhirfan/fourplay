@@ -2,7 +2,7 @@ import socket
 import threading
 
 #Server setup
-HOST = "Server IP Address"
+HOST = '192.168.1.100'
 PORT = 65432
 
 #Create a socket object
@@ -44,9 +44,11 @@ def check_winner(board, symbol):
 
 def handle_client(conn, player):
     global turn
+    #send the player symbol to the client
     conn.sendall(f'{symbols[player]}'.encode())
     while True:
         try:
+            #Receive data from client
             data = conn.recv(1024).decode()
             if not data:
                 break
