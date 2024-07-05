@@ -59,6 +59,7 @@ def receive_messages():
     global my_turn, symbol, winner
     while True:
         try:
+            # Receive messages from the server
             message = client.recv(1024).decode()
             if message == 'R' or message == 'Y':
                 symbol = message
@@ -66,18 +67,24 @@ def receive_messages():
                 my_turn = (symbol == 'R')
                 if my_turn:
                     display_message("It's your turn (" + color + ")")
-                winner = True
-                if message[4:] == symbol:
-                    print("You win!")
                 else:
-                    print("You lose!")
-                pygame.quit()
-                sys.exit()
-            if message == 'R' or message == 'Y':
-                symbol = message
-                if symbol == 'R':
-                    my_turn = True
+                    display_message("Waiting for opponent's turn")
             else:
+                if message.startswith('WIN:'):
+                    player_symbol, col = message[4:].split(':')
+                    col = int(col)
+                    for row in range(5, -1, -1):
+                        if board[row][col] == ' ':
+                            board[row][col] = player_symbol
+                            break
+                    winner = True
+                    if player_symbol == symbol:
+                        display_message("You win!")
+                    else:
+                        display_message("You lose!")
+                    pygame.quit()
+                    sys.exit()
+
                 player_symbol, col = message.split(':')
                 col = int(col)
                 for row in range(5, -1, -1):
@@ -87,11 +94,15 @@ def receive_messages():
                 draw_board(board)
                 if player_symbol != symbol:
                     my_turn = True
+                    display_message("It's your turn (" + color + ")")
+                else:
+                    display_message("Waiting for opponent's turn")
         except Exception as e:
             print(f"Error: {e}")
             client.close()
             break
 
+            
 def send_move(col):
     client.sendall(f'{col}'.encode())
 
