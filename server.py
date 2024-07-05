@@ -2,7 +2,7 @@ import socket
 import threading
 
 #Server setup
-HOST = "Server IP Address"
+HOST = '192.168.1.100'
 PORT = 65432
 
 #Create a socket object
