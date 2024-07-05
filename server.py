@@ -72,6 +72,8 @@ def handle_client(conn, player):
 
 #Indicates that server was started
 def start_server():
+    print ("Server start")
+
    
 
 #Start the server
