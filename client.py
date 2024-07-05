@@ -51,8 +51,9 @@ board = [[' ' for _ in range(7)] for _ in range(6)]
 my_turn = False
 symbol = ''
 winner = False
-color=''
 
+def receive_messages():
+    global my_turn, symbol, winner, color
 def receive_messages():
     global my_turn, symbol, winner
     while True:
