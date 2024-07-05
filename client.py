@@ -61,15 +61,21 @@ def receive_messages():
         try:
             # Receive messages from the server
             message = client.recv(1024).decode()
+
+              # To assign the player's symbol and color based on the received message just now
             if message == 'R' or message == 'Y':
                 symbol = message
                 color = 'Red' if symbol == 'R' else 'Yellow'
                 my_turn = (symbol == 'R')
+
+                  # This to show a message indicating whose turn it is
                 if my_turn:
                     display_message("It's your turn (" + color + ")")
                 else:
                     display_message("Waiting for opponent's turn")
             else:
+
+                 # This will check if the message indicates a win
                 if message.startswith('WIN:'):
                     player_symbol, col = message[4:].split(':')
                     col = int(col)
@@ -78,6 +84,8 @@ def receive_messages():
                             board[row][col] = player_symbol
                             break
                     winner = True
+
+                    # Display a win or lose message
                     if player_symbol == symbol:
                         display_message("You win!")
                     else:
@@ -85,6 +93,7 @@ def receive_messages():
                     pygame.quit()
                     sys.exit()
 
+                # Update the board with the opponent move
                 player_symbol, col = message.split(':')
                 col = int(col)
                 for row in range(5, -1, -1):
@@ -92,6 +101,8 @@ def receive_messages():
                         board[row][col] = player_symbol
                         break
                 draw_board(board)
+
+                  # If it's the opponent's move, this will set my_turn to True
                 if player_symbol != symbol:
                     my_turn = True
                     display_message("It's your turn (" + color + ")")
@@ -102,7 +113,7 @@ def receive_messages():
             client.close()
             break
 
-            
+
 def send_move(col):
     client.sendall(f'{col}'.encode())
 
